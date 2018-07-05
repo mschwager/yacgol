@@ -69,7 +69,7 @@ class CellGrid:
             for x, cell_button in enumerate(row):
                 func(cell_button, x, y)
 
-    def reset_cells(self):
+    def reset(self):
         self._apply_cell_buttons(
             lambda cell_button, x, y: cell_button.initialize()
         )
@@ -138,16 +138,10 @@ def main():
     command_frame = tkinter.Frame(root)
     command_frame.pack(expand=True, fill=tkinter.BOTH)
 
-    def step():
-        cell_grid.step()
-
-    step_button = tkinter.Button(command_frame, text='Step', command=step)
+    step_button = tkinter.Button(command_frame, text='Step', command=cell_grid.step)
     step_button.pack(side=tkinter.TOP)
 
-    def reset():
-        cell_grid.reset_cells()
-
-    reset_button = tkinter.Button(command_frame, text='Reset', command=reset)
+    reset_button = tkinter.Button(command_frame, text='Reset', command=cell_grid.reset)
     reset_button.pack(side=tkinter.TOP)
 
     reset_button = tkinter.Button(command_frame, text='Exit', command=root.destroy)
