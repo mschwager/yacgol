@@ -8,7 +8,7 @@ import yacgol
 
 class TestCellGrid(unittest.TestCase):
 
-    def test_reset_cells(self):
+    def test_reset(self):
         root = tkinter.Tk()
 
         cell_grid = yacgol.CellGrid(root, 2, 2)
@@ -17,7 +17,7 @@ class TestCellGrid(unittest.TestCase):
         cell_grid.cell_buttons[1][0].flip()
         cell_grid.cell_buttons[0][1].flip()
         cell_grid.cell_buttons[1][1].flip()
-        cell_grid.reset_cells()
+        cell_grid.reset()
 
         result = (
             int(cell_grid.cell_buttons[0][0].alive) +
