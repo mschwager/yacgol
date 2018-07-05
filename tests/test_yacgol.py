@@ -108,6 +108,36 @@ class TestCellGrid(unittest.TestCase):
         self.assertTrue(cell_grid.cell_buttons[1][2].alive)
         self.assertTrue(cell_grid.cell_buttons[2][2].alive)
 
+    def test_beacon_cont(self):
+        """
+        https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life#Examples_of_patterns
+
+        OOXX    OOXX
+        OXXX -> OOXX
+        XXXO    XXOO
+        XXOO    XXOO
+        """
+        root = tkinter.Tk()
+
+        cell_grid = yacgol.CellGrid(root, 4, 4)
+
+        cell_grid.cell_buttons[0][0].flip()
+        cell_grid.cell_buttons[0][1].flip()
+        cell_grid.cell_buttons[1][0].flip()
+        cell_grid.cell_buttons[3][3].flip()
+        cell_grid.cell_buttons[2][3].flip()
+        cell_grid.cell_buttons[3][2].flip()
+
+        cell_grid.cont(seconds=0, times=2)
+
+        # This oscillator has period 2 so it should be the same
+        self.assertTrue(cell_grid.cell_buttons[0][0].alive)
+        self.assertTrue(cell_grid.cell_buttons[0][1].alive)
+        self.assertTrue(cell_grid.cell_buttons[1][0].alive)
+        self.assertTrue(cell_grid.cell_buttons[3][3].alive)
+        self.assertTrue(cell_grid.cell_buttons[2][3].alive)
+        self.assertTrue(cell_grid.cell_buttons[3][2].alive)
+
 
 if __name__ == "__main__":
     unittest.main()

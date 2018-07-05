@@ -96,6 +96,16 @@ class CellGrid:
 
         self._apply_cell_buttons(apply_rules)
 
+    def cont(self, seconds=1, times=None):
+        milliseconds = 1000 * seconds
+
+        self.step()
+
+        if times is None:
+            self.window.after(milliseconds, self.cont, seconds, None)
+        elif times > 0:
+            self.window.after(milliseconds, self.cont, seconds, times - 1)
+
 
 def parse_args():
     p = argparse.ArgumentParser(description='''
@@ -140,6 +150,9 @@ def main():
 
     step_button = tkinter.Button(command_frame, text='Step', command=cell_grid.step)
     step_button.pack(side=tkinter.TOP)
+
+    continue_button = tkinter.Button(command_frame, text='Continue', command=cell_grid.cont)
+    continue_button.pack(side=tkinter.TOP)
 
     reset_button = tkinter.Button(command_frame, text='Reset', command=cell_grid.reset)
     reset_button.pack(side=tkinter.TOP)
