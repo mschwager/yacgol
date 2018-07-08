@@ -106,9 +106,9 @@ class CellGrid:
         self.step()
 
         if times is None:
-            self.window.after(milliseconds, self.cont, seconds, None)
+            self.window.after(milliseconds, self.continue_, seconds, None)
         elif times > 0:
-            self.window.after(milliseconds, self.cont, seconds, times - 1)
+            self.window.after(milliseconds, self.continue_, seconds, times - 1)
 
 
 def parse_args():

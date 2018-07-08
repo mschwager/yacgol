@@ -108,7 +108,7 @@ class TestCellGrid(unittest.TestCase):
         self.assertTrue(cell_grid.cell_buttons[1][2].alive)
         self.assertTrue(cell_grid.cell_buttons[2][2].alive)
 
-    def test_beacon_cont(self):
+    def test_beacon_continue_(self):
         """
         https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life#Examples_of_patterns
 
@@ -128,7 +128,7 @@ class TestCellGrid(unittest.TestCase):
         cell_grid.cell_buttons[2][3].flip()
         cell_grid.cell_buttons[3][2].flip()
 
-        cell_grid.cont(seconds=0, times=2)
+        cell_grid.continue_(seconds=0, times=2)
 
         # This oscillator has period 2 so it should be the same
         self.assertTrue(cell_grid.cell_buttons[0][0].alive)
