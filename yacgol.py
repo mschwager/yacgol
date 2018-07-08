@@ -51,6 +51,7 @@ class CellGrid:
         self.window = window
         self.length = length
         self.width = width
+        self.continuing = False
 
         self.cell_buttons = [
             [
@@ -70,6 +71,7 @@ class CellGrid:
                 func(cell_button, x, y)
 
     def reset(self):
+        self.continuing = False
         self._apply_cell_buttons(
             lambda cell_button, x, y: cell_button.initialize()
         )
@@ -96,7 +98,9 @@ class CellGrid:
 
         self._apply_cell_buttons(apply_rules)
 
-    def cont(self, seconds=1, times=None):
+    def continue_(self, seconds=1, times=None):
+        self.continuing = True
+
         milliseconds = 1000 * seconds
 
         self.step()
@@ -140,25 +144,25 @@ def main():
     root = tkinter.Tk()
     root.title("Conway's Game of Life")
 
-    cell_frame = tkinter.Frame(root)
+    cell_frame = tkinter.Frame(root, borderwidth=50)
     cell_frame.pack()
 
     cell_grid = CellGrid(cell_frame, args.length, args.width)
 
-    command_frame = tkinter.Frame(root)
-    command_frame.pack(expand=True, fill=tkinter.BOTH)
+    command_frame = tkinter.Frame(root, borderwidth=20)
+    command_frame.pack(side=tkinter.TOP)
 
     step_button = tkinter.Button(command_frame, text='Step', command=cell_grid.step)
-    step_button.pack(side=tkinter.TOP)
+    step_button.grid(row=0, column=0)
 
-    continue_button = tkinter.Button(command_frame, text='Continue', command=cell_grid.cont)
-    continue_button.pack(side=tkinter.TOP)
+    continue_button = tkinter.Button(command_frame, text='Continue', command=cell_grid.continue_)
+    continue_button.grid(row=0, column=1)
 
     reset_button = tkinter.Button(command_frame, text='Reset', command=cell_grid.reset)
-    reset_button.pack(side=tkinter.TOP)
+    reset_button.grid(row=0, column=2)
 
-    reset_button = tkinter.Button(command_frame, text='Exit', command=root.destroy)
-    reset_button.pack(side=tkinter.TOP)
+    exit_button = tkinter.Button(command_frame, text='Exit', command=root.destroy)
+    exit_button.grid(row=0, column=3)
 
     root.mainloop()
 
