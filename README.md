@@ -5,6 +5,8 @@
 
 `yacgol` is a pure Python implementation of [Conway's Game of Life](https://en.wikipedia.org/wiki/Conway's_Game_of_Life) using [Tkinter](https://docs.python.org/3/library/tkinter.html).
 
+![Demo](https://raw.githubusercontent.com/mschwager/yacgol/master/yacgol.gif)
+
 > The game is a zero-player game, meaning that its evolution is determined
 > by its initial state, requiring no further input. One interacts with the
 > Game of Life by creating an initial configuration and observing how it
