@@ -174,16 +174,32 @@ def main():
     command_frame = tkinter.Frame(root, borderwidth=10)
     command_frame.pack(side=tkinter.TOP)
 
-    step_button = tkinter.Button(command_frame, text='Step', command=cell_grid.step)
+    step_button = tkinter.Button(
+        command_frame,
+        text='Step',
+        command=cell_grid.step
+    )
     step_button.grid(row=0, column=0)
 
-    continue_button = tkinter.Button(command_frame, text='Continue', command=cell_grid.continue_)
+    continue_button = tkinter.Button(
+        command_frame,
+        text='Continue',
+        command=cell_grid.continue_
+    )
     continue_button.grid(row=0, column=1)
 
-    reset_button = tkinter.Button(command_frame, text='Reset', command=cell_grid.reset)
+    reset_button = tkinter.Button(
+        command_frame,
+        text='Reset',
+        command=cell_grid.reset
+    )
     reset_button.grid(row=0, column=2)
 
-    exit_button = tkinter.Button(command_frame, text='Exit', command=root.destroy)
+    exit_button = tkinter.Button(
+        command_frame,
+        text='Exit',
+        command=root.destroy
+    )
     exit_button.grid(row=0, column=3)
 
     speed_scale_frame = tkinter.Frame(root, borderwidth=10)
