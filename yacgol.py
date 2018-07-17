@@ -46,12 +46,16 @@ class CellGrid:
         (1, -1),
         (0, -1),
     ]
+    SPEED_MIN = 1
+    SPEED_MAX = 10
 
     def __init__(self, window, length, width):
         self.window = window
         self.length = length
         self.width = width
         self.continuing = False
+        self.current_speed = 1
+        self.after_id = None
 
         self.cell_buttons = [
             [
@@ -72,6 +76,11 @@ class CellGrid:
 
     def reset(self):
         self.continuing = False
+
+        if self.after_id:
+            self.window.after_cancel(self.after_id)
+            self.after_id = None
+
         self._apply_cell_buttons(
             lambda cell_button, x, y: cell_button.initialize()
         )
@@ -101,14 +110,27 @@ class CellGrid:
     def continue_(self, seconds=1, times=None):
         self.continuing = True
 
-        milliseconds = 1000 * seconds
+        milliseconds = int(1000 * seconds / self.current_speed)
 
         self.step()
 
         if times is None:
-            self.window.after(milliseconds, self.continue_, seconds, None)
+            self.after_id = self.window.after(
+                milliseconds,
+                self.continue_,
+                seconds,
+                None
+            )
         elif times > 0:
-            self.window.after(milliseconds, self.continue_, seconds, times - 1)
+            self.after_id = self.window.after(
+                milliseconds,
+                self.continue_,
+                seconds,
+                times - 1
+            )
+
+    def speed(self, current_speed):
+        self.current_speed = int(current_speed)
 
 
 def parse_args():
@@ -149,7 +171,7 @@ def main():
 
     cell_grid = CellGrid(cell_frame, args.length, args.width)
 
-    command_frame = tkinter.Frame(root, borderwidth=20)
+    command_frame = tkinter.Frame(root, borderwidth=10)
     command_frame.pack(side=tkinter.TOP)
 
     step_button = tkinter.Button(command_frame, text='Step', command=cell_grid.step)
@@ -163,6 +185,18 @@ def main():
 
     exit_button = tkinter.Button(command_frame, text='Exit', command=root.destroy)
     exit_button.grid(row=0, column=3)
+
+    speed_scale_frame = tkinter.Frame(root, borderwidth=10)
+    speed_scale_frame.pack(side=tkinter.TOP)
+
+    speed_scale = tkinter.Scale(
+        speed_scale_frame,
+        from_=CellGrid.SPEED_MIN,
+        to=CellGrid.SPEED_MAX,
+        orient=tkinter.HORIZONTAL,
+        command=cell_grid.speed
+    )
+    speed_scale.grid(row=0, column=0)
 
     root.mainloop()
 

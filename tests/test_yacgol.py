@@ -138,6 +138,19 @@ class TestCellGrid(unittest.TestCase):
         self.assertTrue(cell_grid.cell_buttons[2][3].alive)
         self.assertTrue(cell_grid.cell_buttons[3][2].alive)
 
+    def test_speed(self):
+        speed = 10
+        root = tkinter.Tk()
+
+        cell_grid = yacgol.CellGrid(root, 1, 1)
+
+        cell_grid.speed(speed)
+
+        result = cell_grid.current_speed
+        expected = speed
+
+        self.assertEqual(expected, result)
+
 
 if __name__ == "__main__":
     unittest.main()
